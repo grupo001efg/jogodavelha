@@ -1,0 +1,63 @@
+const jogadorVez = document.querySelector(".jogadorVez");
+
+let selecionar;
+let jogador = "X";
+
+let posicoes = [ 
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+    [1, 4, 7],
+    [2, 5, 8],
+    [3, 6, 9],
+    [1, 5, 9],
+    [3, 5, 7],
+];
+
+//init igual a inocializar
+function init(){
+        selecionar = [];
+
+        jogadorVez.innerHTML = `Jogador da Vez: ${jogador}`;
+        document.querySelectorAll(".jogo button").forEach((iten)=> {
+            iten.innerHTML = "";
+            iten.addEventListener("click", novoMovimento);
+        })
+}
+
+//carregamento da função Init, deixando pronta para usar
+init();
+
+function novoMovimento(e){ 
+    const index = e.target.getAttibute("data-i");
+    e.target.innerHTML = jogador;
+    e.target.removeEventlistener("click", novoMovimento);
+    selecionar[index] = jogador;
+
+    setTimeout(()=> {
+        validar();
+  }, [100]);
+
+   jogador = jogador === "X" ? "O" : "X";
+   jogadorVez.innerHTML = `Jogador da Vez: ${jogador}`;
+
+}
+ function validar(){
+    debugger
+    let ultimajogada = jogador ==="X" ? "O" : "X";
+
+    const itens = selecionar.map((iten,i)=> [inten,i]).filter((iten) => iten[0] === ultimaJogada).map((iten)=> iten[1]);
+  
+    for (pos of posicoes) {       
+        if (pos.every((iten)=> itens.includes(iten))) {
+            alert("O GOGADOR `" + ultimaJogada + "` GANHOU!");
+            init();
+            return;
+        }
+    }
+
+    if (selected.filter((iten) => iten).length === 9) {
+        alert("DEU VELHA!");   
+        init();
+     }
+ }
